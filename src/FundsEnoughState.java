@@ -13,18 +13,12 @@ public class FundsEnoughState implements State {
         this.machine =  machine;
     }
 
-	/* (non-Javadoc)
-	 * @see State#insertCoin()
-	 */
 	@Override
 	public void insertCoin(Coin coin) {
 		// TODO Auto-generated method stub
 //		System.out.println("	FundsEnoughState: insertCoin=" + coin);
 	}
 
-	/* (non-Javadoc)
-	 * @see State#selectItem()
-	 */
 	@Override
 	public void dispenseItem(Item item) {
 		// TODO Auto-generated method stub
@@ -36,8 +30,10 @@ public class FundsEnoughState implements State {
 		}else {
 			System.err.println("You Inserted " + machine.currentBalance + "c. Not Enough For " + item.getName() + "(" + item.getPrice() + "c). Please add more coins.");
 		}
-		if (!machine.isEnoughFund())
+		//after dispense, if fund is not enough for lowest-priced item then go back to fundsNotEnoughState
+		if (!machine.isEnoughFund()) {
 			machine.setMachineState(machine.getFundsNotEnoughState());
+		}
 	}
 
 }

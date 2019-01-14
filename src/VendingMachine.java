@@ -40,20 +40,19 @@ public class VendingMachine {
     
     public void printInventory() throws IOException{
     	System.out.println();
-    	System.out.println("----------------------Inventory Counts----------------------");
+    	System.out.println("------------------------Inventory Counts------------------------");
     	for(Coin c : Coin.values())
-            System.out.print(c + "(" + c.getDenomination() +"c)" +  " = " + inventoryCash.getQuantity(c) + "\t");
-        System.out.println();
+            System.out.print(c + "(" + c.getDenomination() +"c)" +  " = " + inventoryCash.getQuantity(c) + "\t\t");
         
         System.out.println();
     	for(Item i : Item.values())
-            System.out.print(i.getName() + "(" + i.getPrice() + "c) = "+ inventoryItem.getQuantity(i) + "\t");
+            System.out.print(i.getName() + "(" + i.getPrice() + "c) = "+ inventoryItem.getQuantity(i) + "\t\t");
     	System.out.println();
-    	System.out.println("------------------------------------------------------------");
+    	System.out.println("----------------------------------------------------------------");
     }
 
     /**
-     * Three Actions performed by MAchine: insertCoin(), dispenseItem(), and returnCoins()
+     * Three Actions: insertCoin(), dispenseItem(), and returnCoins()
      */
     public void insertCoin(Coin coin) {
         if ((currentBalance+coin.getDenomination()) <= 100) {
@@ -76,6 +75,7 @@ public class VendingMachine {
 		List<Coin> changes = Collections.emptyList();
 		changes = new ArrayList<Coin>();
 		Coin coinToReturn = null;
+		
 		while(currentBalance > 0) {
 			coinToReturn = null;
 			if(inventoryCash.hasItem(Coin.QUARTER)&&(currentBalance>=Coin.QUARTER.getDenomination()))
@@ -91,6 +91,7 @@ public class VendingMachine {
 				currentBalance -= coinToReturn.getDenomination();
 			}else {
 		        System.err.println("cashInventory is empty!");
+		        break;
 			}
 		}
 		if (!changes.isEmpty())
@@ -98,7 +99,10 @@ public class VendingMachine {
     }
     //-----------------------
 
-    
+    /*
+     * Return true if the amount of the inserted coins is enough
+     * to buy the item with the lowest price in inventory.
+     */
     public boolean isEnoughFund() {
     	float lowestPrice = 0;
     	if (inventoryItem.hasItem(Item.ITEM1))
@@ -110,6 +114,7 @@ public class VendingMachine {
     	
     	return currentBalance >= lowestPrice;
     }
+    //to check if the fund is enough to buy a specific item
     public boolean isEnoughFund(Item item) {
     	return currentBalance >= item.getPrice();
     }

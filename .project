@@ -14,11 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>Software Test - YF (2).doc</name>
-			<type>1</type>
-			<location>/Users/thientruong/Downloads/Software Test - YF (2).doc</location>
-		</link>
-	</linkedResources>
 </projectDescription>
